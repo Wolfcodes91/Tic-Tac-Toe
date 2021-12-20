@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+  }
+
+body {
+    background: linear-gradient(darkBlue, blue, lightBlue);
+    color: white;
+    font-family: 'Londrina Shadow';
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vmin;
+}
+
+h1 {
+    color:darkblue;
+    text-align: center;
+    background-color: whitesmoke;
+    font-size: 4vmin;
+    border-radius: 40%;
+    padding: 2vmin;
+    border: solid 1vmin lightGrey;
+    margin-top: 2vmin;
+    margin-bottom: -2vmin;
+}
+h2 {
+    color: teal;
+    text-align: center;
+    background-color: whitesmoke;
+    border-radius: 40%;
+    border: solid 1vmin lightGrey;
+    margin-bottom: -3vmin;
+    padding: 1vmin;
+    font-size: 4vmin;
+    font-weight: bold;
+}
+
+#board {
+    display: grid; 
+    grid-template-columns: repeat(3, 20vmin);
+    grid-template-rows: repeat(3, 20vmin);
+    gap: 4vmin;
+    margin-top: -3vmin;
+    padding: 10vmin;
+    text-align: center;
+    color: orangered;
+    font-size: 15vmin;
+    font-weight: bold;
+  }
+  
+  #board > div {
+    border-radius: 20%;
+    border: solid 1vmin white;
+  }
+
+button {
+    color: black;
+    background-color: goldenrod;
+    font-family: 'Londrina Shadow';
+    position: absolute;
+    font-size: 2vmin;
+    margin-top: -6vmin;
+    padding: 2vmin;
+    border-radius: 40%;
+    border: solid 0.5vmin white;
+    font-weight: bold;
+
+}
+#btn {
+    display: grid;
+    justify-items: center;
+    
+}
+
+button:hover {
+    background-color: orangered;
+    color: white;
+  }
+#board >div:hover {
+    background-color: grey;
+}
