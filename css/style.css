@@ -19,12 +19,12 @@ h1 {
     color:darkblue;
     text-align: center;
     background-color: whitesmoke;
-    font-size: 4vmin;
+    font-size: 3.5vmin;
     border-radius: 40%;
     padding: 2vmin;
     border: solid 1vmin lightGrey;
     margin-top: 2vmin;
-    margin-bottom: -2vmin;
+    margin-bottom: -3vmin;
 }
 h2 {
     color: teal;
@@ -61,7 +61,7 @@ button {
     background-color: goldenrod;
     font-family: 'Londrina Shadow';
     position: absolute;
-    font-size: 2vmin;
+    font-size: 1vmin;
     margin-top: -6vmin;
     padding: 2vmin;
     border-radius: 40%;

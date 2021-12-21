@@ -1,12 +1,29 @@
 /*----- constants -----*/
-const COLORS = {
-    '0': ' ', 
-    '1': 'X',
-    '-1': 'O'
-};
+const winningPatterns = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+]
 
-
-
+function checkIsWinner() {
+    winningPatterns.forEach(function(pattern){
+        let x = 0
+        let o = 0
+        pattern.forEach(function (square){
+            const value = board[square]
+            if (value === 'X') x += 1
+            if (value === 'O') o += 1
+            if (x === 3) winner = 'X'
+            else if (o === 3) winner = 'O'
+            else if (turn > 8) winner = 'T' 
+        })
+    })
+}
 
 /*----- app's state (variables) -----*/
 let board; //grid of divs 
@@ -34,85 +51,50 @@ const gridItems = document.querySelector('#board')
 init();
 
 function init() {
-    board = [
-        [0, 0, 0,], //row 0
-        [0, 0, 0], //row 1
-        [0, 0, 0], //row 2
-    ]; 
+    board = Array(9).fill(null); 
     turn = 1;
     winner = null;
      render();
 }
+function getSymbol() {
+    return turn % 2 === 0 ? 'O' : 'X'
+}
 function handleMove(evt) {
     
-    const colIdx = boardEls.indexOf(evt.target);
-    if (colIdx === -1 || winner) return; 
-       const colArr = board[colIdx];
-       const rowIdx = colArr.indexOf(0);
-       colArr[rowIdx] = turn;
-       turn *= -1;
-
-   
-    render();
+    const square = boardEls.indexOf(evt.target);
+    console.log(square)
+    const symbol = getSymbol()
+    board[square]=symbol
+    render()
+    turn += 1 
 }
 
 function render() {
+    checkIsWinner() 
     btnEl.style.visibility = winner ? 'visible' : 'hidden';
     renderBoard();
     renderMessage();
 }
 
-
 function renderMessage () {
-   if (winner === 'T') {
-    msgEl.innerHTML = 'Tie Game!'; 
-   } else if (winner) {
-    msgEl.innerHTML = `<span style="color: orangeRed">${COLORS[winner].toUpperCase()} Wins!</span>`;
-} else {
-    msgEl.innerHTML = `${COLORS[turn].toUpperCase()}'s Turn`;
+    if (winner === 'T') {
+        msgEl.innerHTML = 'Tie Game!'; 
+    } else if (winner) {
+        msgEl.innerHTML = `<span style="color: orangeRed">${winner} Wins!</span>`;
+    } else {
+        msgEl.innerHTML = `${getSymbol()}'s Turn`;
    }
 }
 
-
 function renderBoard() {
-    board.forEach(function(colArr, colIdx) {
-      colArr.forEach(function(playerVal, rowIdx) {
-        const divId = `c${rowIdx}r${colIdx}`;  // e.g. "c6r5"
+    board.forEach(function(value, index) {
+      //colArr.forEach(function(playerVal, rowIdx) {
+        const divId = `square${index}`;  // e.g. "square7"
         const divEl = document.getElementById(divId);
-        divEl.innerText = COLORS[playerVal];
+        console.log(divId)
+        divEl.innerText = value
         
-      });
+        
+
     });
-}
-
-function getWinner(colIdx, rowIdx) {
-     const winner = checkVertWin(colIdx, rowIdx) || checkHorzWin(colIdx, rowIdx);
-
-     return winner;
-}
-function checkVertWin(colIdx, rowIdx) {
-  const player = board[colIdx][rowIdx];
-  let count = 1;
-    rowIdx--;
-  while(rowIdx >= board.length && board[colIdx][rowIdx] === player) {
-    count++;
-    rowIdx--;
-  }
-  
-}
-function checkHorzWin(colIdx, rowIdx) {
-    const player = board[colIdx][rowIdx];
-  let count = 1;
-    let col = colIdx -1;
-  while(col >= 0 && board[col][rowIdx] === player) {
-    count++;
-    col--;
-}
-col = colIdx + 1
-    while (col < board.length && board[col][rowIdx] === player) {
-      count++;
-      col++;
-    }
-    
-return count === 3 ? player : null;
 }
